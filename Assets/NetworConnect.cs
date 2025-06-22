@@ -24,6 +24,15 @@ public class NetworkConnect : MonoBehaviour
         stickClickAction.performed -= OnStickClick;
         stickClickAction.Disable();
     }
+    void Awake()
+    {
+        if (FindObjectsOfType<NetworkManager>().Length > 1)
+        {
+            Debug.LogWarning("Mehr als ein NetworkManager gefunden – zerstöre überzähligen!");
+            Destroy(gameObject);
+            return;
+        }
+    }
 
     private void ConfigureTransport()
     {
