@@ -4059,7 +4059,7 @@ MonoBehaviour:
   m_MaxConnectAttempts: 60
   m_DisconnectTimeoutMS: 30000
   ConnectionData:
-    Address: 127.0.0.1
+    Address: 192.168.0.15
     Port: 7777
     ServerListenAddress: 127.0.0.1
   DebugSimulator:
@@ -4093,7 +4093,7 @@ MonoBehaviour:
     EnableTimeResync: 0
     TimeResyncInterval: 30
     EnsureNetworkVariableLengthSafety: 0
-    EnableSceneManagement: 0
+    EnableSceneManagement: 1
     ForceSamePrefabs: 1
     RecycleNetworkIds: 1
     NetworkIdRecycleDelay: 120
@@ -4135,6 +4135,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 507be9a75acbd884f922d45c7e8358fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ipAddress: 192.168.0.15
+  port: 7777
   stickClickAction:
     m_Name: Stick Click
     m_Type: 0
