@@ -32,10 +32,7 @@ public class NetworkPlayer : NetworkBehaviour
             if (networkManager != null)
             {
                 InstanceControl control = networkManager.GetComponent<InstanceControl>();
-                if (control != null)
-                {
-                    control.SetCameraMode(allowTracking);
-                }
+                
             }
 
             if (allowTracking)
@@ -49,18 +46,35 @@ public class NetworkPlayer : NetworkBehaviour
 
     void Update()
     {
-        if (!IsOwner || !allowTracking) return;
+        
+            if (!IsOwner || !allowTracking) return;
 
-        root.position = VRRigrefferences.Singelton.root.position;
-        root.rotation = VRRigrefferences.Singelton.root.rotation;
+            if (VRRigrefferences.Singelton == null) return;
 
-        head.position = VRRigrefferences.Singelton.head.position;
-        head.rotation = VRRigrefferences.Singelton.head.rotation;
+            if (root != null && VRRigrefferences.Singelton.root != null)
+            {
+                root.position = VRRigrefferences.Singelton.root.position;
+                root.rotation = VRRigrefferences.Singelton.root.rotation;
+            }
 
-        leftHand.position = VRRigrefferences.Singelton.leftHand.position;
-        leftHand.rotation = VRRigrefferences.Singelton.leftHand.rotation;
+            if (head != null && VRRigrefferences.Singelton.head != null)
+            {
+                head.position = VRRigrefferences.Singelton.head.position;
+                head.rotation = VRRigrefferences.Singelton.head.rotation;
+            }
 
-        rightHand.position = VRRigrefferences.Singelton.rightHand.position;
-        rightHand.rotation = VRRigrefferences.Singelton.rightHand.rotation;
+            if (leftHand != null && VRRigrefferences.Singelton.leftHand != null)
+            {
+                leftHand.position = VRRigrefferences.Singelton.leftHand.position;
+                leftHand.rotation = VRRigrefferences.Singelton.leftHand.rotation;
+            }
+
+            if (rightHand != null && VRRigrefferences.Singelton.rightHand != null)
+            {
+                rightHand.position = VRRigrefferences.Singelton.rightHand.position;
+                rightHand.rotation = VRRigrefferences.Singelton.rightHand.rotation;
+            }
+        
+
     }
 }
