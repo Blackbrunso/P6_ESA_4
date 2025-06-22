@@ -1,11 +1,17 @@
 using UnityEngine;
 using Unity.Netcode;
+using Unity.Netcode.Transports.UTP;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class NetworkConnect : MonoBehaviour
 {
-    public InputAction stickClickAction; 
+    [Header("Verbindungsdaten")]
+    public string ipAddress = "127.0.0.1";
+    public ushort port = 7777;
+
+    [Header("Steuerung")]
+    public InputAction stickClickAction;
 
     private void OnEnable()
     {
@@ -19,29 +25,53 @@ public class NetworkConnect : MonoBehaviour
         stickClickAction.Disable();
     }
 
+    private void ConfigureTransport()
+    {
+        var transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
+        if (transport != null)
+        {
+            transport.SetConnectionData(ipAddress, port);
+            Debug.Log($"Transport konfiguriert mit IP: {ipAddress}, Port: {port}");
+        }
+        else
+        {
+            Debug.LogWarning("Kein UnityTransport gefunden!");
+        }
+    }
+
     private void OnStickClick(InputAction.CallbackContext context)
     {
-        Debug.Log("Joining as client...");
+        Debug.Log("Stick gedrückt – Versuche als Client zu joinen...");
         Join();
     }
 
     public void Create()
     {
-        NetworkManager.Singleton.StartHost();
-        NetworkManager.Singleton.SceneManager.LoadScene("PC", LoadSceneMode.Single);
+        ConfigureTransport();
+
+        if (!NetworkManager.Singleton.IsListening)
+        {
+            NetworkManager.Singleton.StartHost();
+            Debug.Log("Host gestartet.");
+            NetworkManager.Singleton.SceneManager.LoadScene("PC", LoadSceneMode.Single);
+        }
+        else
+        {
+            Debug.Log("Bereits verbunden.");
+        }
     }
 
     public void Join()
     {
         if (!NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsHost)
         {
-            Debug.Log("Joining as client...");
+            ConfigureTransport();
+            Debug.Log("Client wird gestartet...");
             NetworkManager.Singleton.StartClient();
         }
         else
         {
-            Debug.Log("Already connected.");
+            Debug.Log("Client oder Host läuft bereits.");
         }
     }
-
 }
