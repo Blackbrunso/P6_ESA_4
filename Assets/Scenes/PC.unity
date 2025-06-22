@@ -240,6 +240,52 @@ Transform:
   - {fileID: 1133379399}
   m_Father: {fileID: 774014754}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &24065654
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 24065656}
+  - component: {fileID: 24065655}
+  m_Layer: 0
+  m_Name: Scene Loader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &24065655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 24065654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04602b51ba7e9864fa70c69c9a3ec9b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  XRSetup: {fileID: 709225331}
+  altCamera: {fileID: 233033796475410929}
+--- !u!4 &24065656
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 24065654}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.059821486, y: -0.4025693, z: 0.28866506}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &49883756
 GameObject:
   m_ObjectHideFlags: 0
@@ -4029,7 +4075,6 @@ GameObject:
   - component: {fileID: 744070502}
   - component: {fileID: 744070505}
   - component: {fileID: 744070506}
-  - component: {fileID: 744070507}
   m_Layer: 0
   m_Name: Network Manager
   m_TagString: Network
@@ -4166,20 +4211,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bf083094e3f2b246a5fc3c25092a522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &744070507
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 744070501}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04602b51ba7e9864fa70c69c9a3ec9b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  XRSetup: {fileID: 709225331}
-  altCamera: {fileID: 233033796475410929}
 --- !u!1 &759805089
 GameObject:
   m_ObjectHideFlags: 0
@@ -13517,6 +13548,7 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 508720093377466720}
   - {fileID: 832575519}
+  - {fileID: 24065656}
   - {fileID: 744070504}
   - {fileID: 773190233}
   - {fileID: 1964602100}
