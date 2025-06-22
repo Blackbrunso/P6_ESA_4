@@ -26,13 +26,14 @@ public class NetworkConnect : MonoBehaviour
     }
     void Awake()
     {
-        if (FindObjectsOfType<NetworkManager>().Length > 1)
+        if (NetworkManager.Singleton != null && NetworkManager.Singleton != GetComponent<NetworkManager>())
         {
-            Debug.LogWarning("Mehr als ein NetworkManager gefunden – zerstöre überzähligen!");
+            Debug.LogWarning("Ein weiterer NetworkManager existiert bereits.");
             Destroy(gameObject);
             return;
         }
     }
+
 
     private void ConfigureTransport()
     {
