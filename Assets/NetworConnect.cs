@@ -6,9 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class NetworkConnect : MonoBehaviour
 {
-    [Header("Verbindungsdaten")]
-    public string ipAddress = "127.0.0.1";
-    public ushort port = 7777;
+    
+
+    [Header("Visuelles Feedback")]
+    public Renderer floorRenderer;
+    public Material connectedMaterial;
+    public Material defaultMaterial;
+
+    bool isConeected= false;
 
     [Header("Steuerung")]
     public InputAction stickClickAction;
@@ -34,20 +39,40 @@ public class NetworkConnect : MonoBehaviour
         }
     }
 
-
-    private void ConfigureTransport()
+    private void Update()
     {
-        var transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
-        if (transport != null)
+        
+            
+        if (NetworkManager.Singleton.IsConnectedClient)
         {
-            transport.SetConnectionData(ipAddress, port);
-            Debug.Log($"Transport konfiguriert mit IP: {ipAddress}, Port: {port}");
+            SetFloorConnectedVisual(true);
+
         }
         else
         {
-            Debug.LogWarning("Kein UnityTransport gefunden!");
+            SetFloorConnectedVisual(false);
+        }
+        
+        
+       
+    }
+
+  
+
+    private void SetFloorConnectedVisual(bool connected)
+    {
+        if (floorRenderer != null && connectedMaterial != null && defaultMaterial != null)
+        {
+            floorRenderer.material = connected ? connectedMaterial : defaultMaterial;
+            //Debug.Log(" Bodenmaterial aktualisiert: " + (connected ? "Verbunden" : "Nicht verbunden"));
+        }
+        else
+        {
+            floorRenderer.material = defaultMaterial;
+            //Debug.LogWarning(" Floor Renderer oder Materialien fehlen!");
         }
     }
+
 
     private void OnStickClick(InputAction.CallbackContext context)
     {
@@ -57,7 +82,7 @@ public class NetworkConnect : MonoBehaviour
 
     public void Create()
     {
-        ConfigureTransport();
+        
 
         if (!NetworkManager.Singleton.IsListening)
         {
@@ -75,13 +100,14 @@ public class NetworkConnect : MonoBehaviour
     {
         if (!NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsHost)
         {
-            ConfigureTransport();
             Debug.Log("Client wird gestartet...");
             NetworkManager.Singleton.StartClient();
+
         }
         else
         {
             Debug.Log("Client oder Host läuft bereits.");
         }
     }
+
 }

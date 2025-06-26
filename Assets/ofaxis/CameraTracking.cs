@@ -2,14 +2,29 @@ using UnityEngine;
 
 public class CameraTracking : MonoBehaviour
 {
-    
+    private NetworkPlayer trackedPlayer;
+
     void Update()
     {
-        if (NetworkPlayer.MainHeadset != null)
+        // Falls noch kein Player getrackt wird, einen suchen
+        if (trackedPlayer == null)
         {
-            //transform.position = test.position; 
-            transform.position = NetworkPlayer.MainHeadset.position;
-            //transform.rotation = NetworkPlayer.MainHeadset.rotation; 
+            foreach (var player in FindObjectsOfType<NetworkPlayer>())
+            {
+                if (!player.IsLocalPlayer) // nur Remote-Spieler (nicht du selbst)
+                {
+                    trackedPlayer = player;
+                    Debug.Log("Tracking remote player: " + player.name);
+                    break;
+                }
+            }
+        }
+
+        // Wenn ein Player gefunden wurde, dessen Headset verfolgen
+        if (trackedPlayer != null && trackedPlayer.head != null)
+        {
+            transform.position = trackedPlayer.head.position;
+            transform.rotation = trackedPlayer.head.rotation;
         }
     }
 }
